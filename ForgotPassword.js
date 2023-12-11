@@ -47,7 +47,9 @@ const ForgotPassword = () => {
         />
       </div>
       <button className="reset-button" onClick={handleResetPassword}>
+        <Link to="/Login" className="reset-button">
         Reset Password
+        </Link>
       </button>
     </div>
   );
