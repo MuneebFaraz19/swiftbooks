@@ -1,0 +1,329 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './ProductPage.css'; // Make sure to use the correct CSS file
+import FF from './FF.jpg';
+
+const ProductPage = () => {
+  const [books, setBooks] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.post('http://localhost:5600/books/search', { keyword: searchKeyword });
+      setBooks(response.data.data);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, [searchKeyword]);
+
+  return (
+    <div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search by Book name, genre, The author's name, and publish year..."
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
+        
+      </div>
+      <h2 className="heading">Our Books</h2>
+      <div className="books-container">
+        {books.map((book) => (
+          <div key={book.isbn} className="book-card">
+            <img src={FF} alt={book.book_title} className="book-image" />
+            <div className="book-details">
+              <h3 className="book-title">{book.book_title}</h3>
+              <p className="book-info">{`Genre: ${book.genre_name}`}</p>
+              <p className="book-info">{`Author: ${book.author_name}`}</p>
+              <p className="book-info">{`Publish Year: ${book.publish_year}`}</p>
+              <p className="book-info">{`Quantity: ${book.Qty}`}</p>
+              <p className="book-info">{`Price: $${book.price}`}</p>
+              <p className="book-info">{`Rating: ${book.rating}`}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductPage;
+ 
+
+
+ import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './CheckoutPage.css';
+
+const CheckoutPage = ({ currentUser, currentBook }) => {
+  const [customerInfo, setCustomerInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    address: '',
+    paymentMethod: 'creditCard',
+  });
+
+  const [bookDetails, setBookDetails] = useState({
+    // Use the currentBook passed as a prop
+    book_Title: currentBook,
+    // ... other book details
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // Fetch additional data based on currentUser and currentBook
+        const userData = await axios.post('http://localhost:5600/users/searchForBB', { keyword: currentUser });
+        const bookData = await axios.post('http://localhost:5600/books/searchForBB', { keyword: currentBook });
+
+        // Use the fetched data as needed
+        console.log('User Data:', userData.data);
+        console.log('Book Data:', bookData.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData(); // Call the fetchData function when the component mounts
+  }, [currentUser, currentBook]);
+  
+
+  const fetchUserDetails = async (username) => {
+    try {
+      const response = await axios.post('http://localhost:5600/users/searchForBB', { keyword: username });
+      const userData = response.data.data[0]; // Assuming only one user is returned
+      setCustomerInfo(userData);
+    } catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
+
+  const fetchBookDetails = async (bookName) => {
+    try {
+      const response = await axios.post('http://localhost:5600/books/searchForBB', { keyword: bookName });
+      const bookData = response.data.data[0]; // Assuming only one book is returned
+      setBookDetails(bookData);
+    } catch (error) {
+      console.error('Error fetching book details:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCustomerInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
+  };
+  
+  console.log('UserID:', customerInfo.userID);
+console.log('ISBN:', bookDetails.isbn);
+
+
+  const handlePlaceOrder = async () => {
+    try {
+      // Use the create function in the backend to add the order to the database
+      await axios.post('http://localhost:5600/books_bought/create', {
+        userID: customerInfo.userID,
+        isbn: bookDetails.isbn,
+      });
+
+      // Additional logic or redirection after placing the order
+      console.log('Order placed successfully!');
+    } catch (error) {
+      console.error('Error placing order:', error);
+    }
+  };
+
+  return (
+    <div className="checkout-page">
+      <div className="checkout-form">
+        <h2>Checkout</h2>
+        <div className="form-group">
+          <label htmlFor="firstName">First Name:</label>
+          <input
+            type="text"
+            id="firstName"
+            name="firstName"
+            value={customerInfo.firstName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name:</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={customerInfo.lastName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={customerInfo.email}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="address">Address:</label>
+          <textarea
+            id="address"
+            name="address"
+            value={customerInfo.address}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Payment Method:</label>
+          <select
+            name="paymentMethod"
+            value={customerInfo.paymentMethod}
+            onChange={handleInputChange}
+          >
+            <option value="creditCard">Credit Card</option>
+            <option value="paypal">PayPal</option>
+          </select>
+        </div>
+        <button onClick={handlePlaceOrder}>Place Order</button>
+      </div>
+    </div>
+  );
+
+}
+
+export default CheckoutPage;
+
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import './ProductPage.css'; // Make sure to use the correct CSS file
+import FF from './FF.jpg';
+
+const ProductPage = () => {
+  const [books, setBooks] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const fetchBooks = async () => {
+    try {
+      const response = await axios.post('http://localhost:5600/books/search', { keyword: searchKeyword });
+      setBooks(response.data.data);
+    } catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, [searchKeyword]);
+
+  const handleBookClick = (bookName) => {
+    setCurrentBook(bookName);
+    // Navigate to the CheckoutPage
+    // You can use React Router or any other navigation method
+    history.push('/checkout');
+  };
+  
+
+  return (
+    <div>
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search by Book name, genre, The author's name, and publish year..."
+          value={searchKeyword}
+          onChange={(e) => setSearchKeyword(e.target.value)}
+        />
+      </div>
+      <h2 className="heading">Our Books</h2>
+      <div className="books-container">
+        {books.map((book) => (
+          <div key={book.isbn} className="book-card">
+            <img src={FF} alt={book.book_title} className="book-image" />
+            <div className="book-details">
+              <h3 className="book-title">{book.book_title}</h3>
+              <p className="book-info">{`Genre: ${book.genre_name}`}</p>
+              <p className="book-info">{`Author: ${book.author_name}`}</p>
+              <p className="book-info">{`Publish Year: ${book.publish_year}`}</p>
+              <p className="book-info">{`Quantity: ${book.Qty}`}</p>
+              <p className="book-info">{`Price: $${book.price}`}</p>
+              <p className="book-info">{`Rating: ${book.rating}`}</p>
+              <Link to='/checkout' className="buy-button">Buy</Link>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ProductPage;
+
+
+
+/* CheckoutPage.css */
+.checkout-page {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.checkout-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
