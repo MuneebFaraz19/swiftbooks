@@ -1,0 +1,181 @@
+-- Create the genre table
+CREATE TABLE genre (
+    genreID INT PRIMARY KEY AUTO_INCREMENT,
+    genre_name VARCHAR(255) NOT NULL
+);
+
+-- Create the author table
+CREATE TABLE author (
+    authorID INT PRIMARY KEY AUTO_INCREMENT,
+    author_name VARCHAR(255) NOT NULL
+);
+
+-- Create the books table
+CREATE TABLE books (
+    isbn VARCHAR(13) PRIMARY KEY,
+    book_title VARCHAR(255) NOT NULL,
+    rating DECIMAL(3, 2),
+    price DECIMAL(10, 2),
+    Qty INT,
+    genreID INT,
+    authorID INT,
+    publish_year INT,
+    CONSTRAINT fk_books_genre
+        FOREIGN KEY (genreID)
+        REFERENCES genre (genreID),
+    CONSTRAINT fk_books_author
+        FOREIGN KEY (authorID)
+        REFERENCES author (authorID)
+);
+
+-- Create the subscription table
+CREATE TABLE subscription (
+    subscriptionID INT PRIMARY KEY AUTO_INCREMENT,
+    subscription_name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    validity varchar(9)
+);
+
+-- Create the users table
+CREATE TABLE IF NOT EXISTS users (
+            userID INT PRIMARY KEY AUTO_INCREMENT,
+            username VARCHAR(255) UNIQUE NOT NULL,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255),
+            money_spent DECIMAL(10,2) DEFAULT 0.00
+        );
+
+
+
+-- Create the books_bought table
+CREATE TABLE books_bought (
+    userID INT,
+    isbn VARCHAR(13),
+    book_title VARCHAR(255),
+    price DECIMAL(10, 2),
+    PRIMARY KEY (userID, isbn),
+    CONSTRAINT fk_books_bought_users
+        FOREIGN KEY (userID)
+        REFERENCES users (userID),
+    CONSTRAINT fk_books_bought_books
+        FOREIGN KEY (isbn)
+        REFERENCES books (isbn)
+);
+
+-- Create the wishlist table
+CREATE TABLE wishlist (
+    wishlistID INT PRIMARY KEY AUTO_INCREMENT,
+    userID INT,
+    isbn VARCHAR(13),
+    added_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_wishlist_users
+        FOREIGN KEY (userID)
+        REFERENCES users (userID),
+    CONSTRAINT fk_wishlist_books
+        FOREIGN KEY (isbn)
+        REFERENCES books (isbn)
+);
+
+-- Create the subscriptions_bought table
+CREATE TABLE subscriptions_bought (
+    subscriptionID INT,
+    userID INT,
+    start_date DATE,
+    end_date DATE,
+    PRIMARY KEY (subscriptionID, userID),
+    CONSTRAINT fk_subscriptions_bought_subscription
+        FOREIGN KEY (subscriptionID)
+        REFERENCES subscription (subscriptionID),
+    CONSTRAINT fk_subscriptions_bought_user
+        FOREIGN KEY (userID)
+        REFERENCES users (userID)
+);
+
+-- Create trigger to increase money spent when a user buys subscription
+DELIMITER //
+CREATE TRIGGER update_money_spent
+AFTER INSERT ON subscriptions_bought
+FOR EACH ROW
+BEGIN
+    UPDATE users
+    SET money_spent = money_spent + (SELECT price FROM subscription WHERE subscriptionID = NEW.subscriptionID)
+    WHERE userID = NEW.userID;
+END;
+//
+DELIMITER ;
+
+-- Trigger to increase money spent when a book is bought
+DELIMITER //
+CREATE TRIGGER update_money_spent_books
+AFTER INSERT ON books_bought
+FOR EACH ROW
+BEGIN
+    UPDATE users
+    SET money_spent = money_spent + NEW.price
+    WHERE userID = NEW.userID;
+END;
+//
+DELIMITER ;
+
+-- Trigger to set start date and end date based on subscription name
+DELIMITER //
+CREATE TRIGGER set_subscription_dates
+BEFORE INSERT ON subscriptions_bought
+FOR EACH ROW
+BEGIN
+    CASE NEW.subscriptionID
+        WHEN 1 THEN
+            SET NEW.start_date = CURDATE();
+            SET NEW.end_date = DATE_ADD(CURDATE(), INTERVAL 12 MONTH);
+        WHEN 2 THEN
+            SET NEW.start_date = CURDATE();
+            SET NEW.end_date = DATE_ADD(CURDATE(), INTERVAL 6 MONTH);
+        WHEN 3 THEN
+            SET NEW.start_date = CURDATE();
+            SET NEW.end_date = DATE_ADD(CURDATE(), INTERVAL 3 MONTH);
+    END CASE;
+END;
+//
+DELIMITER ;
+
+-- Trigger to decrease quantity when a book is bought
+DELIMITER //
+CREATE TRIGGER decrease_quantity_on_purchase
+AFTER INSERT ON books_bought
+FOR EACH ROW
+BEGIN
+    UPDATE books
+    SET Qty = Qty - 1
+    WHERE isbn = NEW.isbn;
+END;
+//
+DELIMITER ;
+
+
+-- Trigger to increase money spent when a book is bought
+DELIMITER //
+CREATE TRIGGER update_money_spent_books
+AFTER INSERT ON books_bought
+FOR EACH ROW
+BEGIN
+    UPDATE users
+    SET money_spent = money_spent + NEW.price
+    WHERE userID = NEW.userID;
+END;
+//
+DELIMITER ;
+
+-- Trigger to increase money spent when a user buys subscription
+DELIMITER //
+CREATE TRIGGER update_money_spent
+AFTER INSERT ON subscriptions_bought
+FOR EACH ROW
+BEGIN
+    UPDATE users
+    SET money_spent = money_spent + (SELECT price FROM subscription WHERE subscriptionID = NEW.subscriptionID)
+    WHERE userID = NEW.userID;
+END;
+//
+DELIMITER ;

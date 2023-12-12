@@ -1,0 +1,46 @@
+/* ViewBooks.css */
+
+.books-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .book-card {
+    width: 30%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    text-align: center;
+  }
+  
+  .book-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .book-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .book-details {
+    text-align: center;
+  }
+  
+  h3 {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  .book-info {
+    color: #888;
+    margin-bottom: 8px;
+  }
+  
+
+  

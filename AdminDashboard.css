@@ -1,78 +1,32 @@
 /* AdminDashboard.css */
+
 .admin-dashboard {
-  padding: 20px;
-  background: whitesmoke;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(206, 161, 161, 0.1);
-  color: #cac0b3;
-}
-
-.dashboard-title {
   text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
+  margin-top: 50px;
 }
 
-.add-product-form,
-.product-list {
-  margin-top: 20px;
-}
-
-.form-row {
+.dashboard-buttons {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  flex-direction: column;
+  align-items: center;
 }
 
-.form-row > div {
-  width: 30%; /* Adjust as needed, leaving some space for margins */
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input,
-button,
-select {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  border: 1px solid #cac0b3;
-  border-radius: 4px;
-  background-color: #002349;
-  color: #cac0b3;
-}
-
-button {
-  background-color: #957c3d;
-  cursor: pointer;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #ff595a;
-}
-
-.product-list table {
-  width: 100%;
-  border-collapse: collapse;
+.dashboard-row {
+  display: flex;
   margin-top: 20px;
 }
 
-.product-list th,
-.product-list td {
-  border: 1px solid #cac0b3;
+.dashboard-button {
   padding: 10px;
-  text-align: left;
+  margin: 0 10px;
+  text-decoration: none;
+  background-color: #3498db;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.product-list th {
-  background-color: #957c3d;
-  color: #cac0b3;
+.dashboard-button:hover {
+  background-color: #2980b9;
 }

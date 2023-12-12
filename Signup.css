@@ -1,0 +1,83 @@
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    margin-top: 100px;
+  }
+  
+  .username {
+    color: white;
+  }
+  
+  .app-title {
+    font-size: 36px;
+    color: white;
+    margin-bottom: 20px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .Heading {
+    font-size: 36px;
+    color: #fcfcfc;
+    text-align: center;
+  }
+  
+  .signup-form {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #030303;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+    color: #fafafa;
+  }
+  
+  label {
+    margin-bottom: 5px;
+  }
+  
+  input {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 10px;
+    font-size: 16px;
+    width: 30%;
+    background-color: maroon;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    align-self: center;
+  }
+  
+  button:hover {
+    background-color: #27ae60;
+  }
+  
+  .login-link {
+    font-size: 12px;
+    color: #007bff;
+    cursor: pointer;
+    margin-top: 10px;
+  }

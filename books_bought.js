@@ -75,7 +75,7 @@ router.post("/search", async (req, res) => {
             FROM books_bought bb
             JOIN users u ON bb.userID = u.userID
             JOIN books b ON bb.isbn = b.isbn
-            WHERE u.username = '${keyword}';
+            WHERE u.username = '${keyword}' or u.userID = '${keyword}';
             `,
             { type: QueryTypes.SELECT }
         )
@@ -84,5 +84,24 @@ router.post("/search", async (req, res) => {
         responseHandler(res, { response: responses.serverError, error })
     }
 })
+
+router.post("/moneyspentbooksbyuser", async (req, res) => {
+    try {
+        const { keyword } = req.body;
+        const product = await db.query(
+            `SELECT u.username, CONCAT(SUM(bb.price), '$') AS total_spent
+            FROM users u
+            JOIN books_bought bb ON u.userID = bb.userID
+            WHERE u.username = '${keyword}'
+            `,
+            { type: QueryTypes.SELECT }
+        )
+        responseHandler(res, { data: product })
+    } catch (error) {
+        responseHandler(res, { response: responses.serverError, error })
+    }
+})
+
+
 
 module.exports = router;

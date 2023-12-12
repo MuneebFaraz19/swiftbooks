@@ -47,10 +47,24 @@ router.post("/search", async (req, res) => {
             FROM wishlist w
             JOIN users u ON w.userID = u.userID
             JOIN books b ON w.isbn = b.isbn
-            WHERE u.username = '${keyword}'; `,
+            WHERE u.username = '${keyword}' or u.userID = '${keyword}'; `,
             { type: QueryTypes.SELECT }
         )
         responseHandler(res, { data: product })
+    } catch (error) {
+        responseHandler(res, { response: responses.serverError, error })
+    }
+})
+
+
+router.post("/delete", async (req, res) => {
+    try {
+        const { userID } = req.body;
+        await db.query(
+            `delete from wishlist where userID = '${userID}'`,
+            { type: QueryTypes.DELETE }
+        )
+        responseHandler(res)
     } catch (error) {
         responseHandler(res, { response: responses.serverError, error })
     }

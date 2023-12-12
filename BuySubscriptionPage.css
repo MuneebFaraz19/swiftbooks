@@ -1,0 +1,78 @@
+/* BuySubscriptionPage.css */
+
+.subscription-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .form-container {
+    margin-bottom: 20px;
+  }
+  
+  .form-input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 25%;
+    box-sizing: border-box;
+  }
+  
+  .submit-button {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .subscription-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .subscription-card {
+    width: 30%;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  text-align: center;
+  }
+  
+  .subscription-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .subscription-details {
+    text-align: center;
+  }
+  
+  .subscription-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .subscription-price {
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .back-to-home {
+    text-decoration: none;
+  }
+  
+  .back-to-home button {
+    background-color: #007bff;
+    margin-top: 10px;
+    margin-right: 500px;
+  }
+  
+  .back-to-home button:hover {
+    background-color: #0056b3;
+  }
+  
+  

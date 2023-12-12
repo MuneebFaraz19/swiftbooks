@@ -9,9 +9,9 @@ const Navbar = () => {
       <div className="navbar-container">
         <h1 className="app-title">SwiftBooks</h1>
         <div className="nav-links">
-          <a href="#home" className="nav-link">
-            Home
-          </a>
+        <Link to="/buysub" className="nav-link">
+            Subscriptions
+          </Link>
           <a href="#about" className="nav-link">
             About
           </a>
@@ -21,6 +21,9 @@ const Navbar = () => {
           <Link to="/Login" className="nav-link">
 
             Login
+          </Link>
+          <Link to="/Signup" className="nav-link">
+            Signup
           </Link>
         </div>
       </div>

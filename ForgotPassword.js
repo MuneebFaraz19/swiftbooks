@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import './ForgotPassword.css'; // Create a CSS file for styling
+import { Link } from 'react-router-dom';
 
 const ForgotPassword = () => {
   const [username, setUsername] = useState('');
@@ -47,9 +48,10 @@ const ForgotPassword = () => {
         />
       </div>
       <button className="reset-button" onClick={handleResetPassword}>
-        <Link to="/Login" className="reset-button">
+      <Link to="/Login" className="reset-button">
         Reset Password
         </Link>
+        
       </button>
     </div>
   );

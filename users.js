@@ -91,6 +91,22 @@ router.post("/sales", async (req, res) => {
         responseHandler(res, { response: responses.serverError, error })
     }
 })
+
+router.post("/salesperuser", async (req, res) => {
+    try {
+        const { keyword } = req.body;
+        const product = await db.query(
+            `SELECT CONCAT(SUM(money_spent),'$') AS SALES
+            FROM users
+            where username = '${keyword}' or userID = '${keyword}';
+             `,
+            { type: QueryTypes.SELECT }
+        )
+        responseHandler(res, { data: product })
+    } catch (error) {
+        responseHandler(res, { response: responses.serverError, error })
+    }
+})
  
 router.post("/searchForBB", async (req, res) => {
     try {

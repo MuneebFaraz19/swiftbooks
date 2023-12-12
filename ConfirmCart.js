@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './ConfirmationPage.css'; // Make sure to use the correct CSS file
+import './ConfirmCart.css'; // Make sure to use the correct CSS file
 import { Link } from 'react-router-dom';
-const ConfirmationPage = () => {
+const ConfirmCart = () => {
   const [isbn, setISBN] = useState('');
   const [userID, setUserID] = useState('');
   const [confirmationMessage, setConfirmationMessage] = useState('');
@@ -10,7 +10,7 @@ const ConfirmationPage = () => {
   const handleConfirmOrder = async () => {
     try {
       // Make an API call to confirm the order
-      const response = await axios.post('http://localhost:5600/books_bought/create', {
+      const response = await axios.post('http://localhost:5600/wishlist/create', {
         isbn,
         userID,
       });
@@ -53,4 +53,4 @@ const ConfirmationPage = () => {
   );
 };
 
-export default ConfirmationPage;
+export default ConfirmCart;

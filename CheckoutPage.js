@@ -49,7 +49,6 @@ const CheckoutPage = ({ currentUser, currentBook }) => {
         <p>{`Quantity: ${bookDetails.Qty}`}</p>
         <p>{`Price: $${bookDetails.price}`}</p>
         <p>{`Rating: ${bookDetails.rating}`}</p>
-        {/* Other book details */}
         <button onClick={handleBuyButtonClick}>Buy</button>
         <Link to='/ProductPage'>Back to Product Page</Link>
       </div>

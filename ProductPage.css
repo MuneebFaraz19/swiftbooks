@@ -84,6 +84,7 @@ h3 {
   top: 20;
   left: 500;
   align-self: flex-end;
+  color: #fff;
 }
 
 /* Existing styles ... */
@@ -103,4 +104,85 @@ h3 {
 
 .buy-button:hover {
   background-color: #218838; /* Darker green on hover, change as needed */
+}
+
+.view-cart-button {
+  display: block;
+  margin-top: 10px;
+  margin-left: 1000px; 
+  margin-right: 50px;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.view-cart-button:hover {
+  background-color: #2980b9;
+}
+
+
+
+.add-to-cart-button:hover{
+  display: inline;
+  
+}
+
+
+
+.view-history-button {
+  display: block;
+  margin-top: 10px;
+  margin-left: 1000px; 
+  margin-right: 50px;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.view-history-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+.money-spent-button {
+  display: block;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.money-spent-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.money-spent-input {
+  width: 200px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #16077c;
+  border-radius: 10px;
+  font-size: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+}
+
+.money-spent-result {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #28a745; /* Green color */
 }

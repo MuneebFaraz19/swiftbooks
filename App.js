@@ -4,8 +4,6 @@ import Login from './Login';
 import LandingPage from './LandingPage';
 import Navbar from './Navbar';
 import Products from './Products';
-import AdminDashboard from './AdminPage';
-
 import AdminLogin from './AdminLogin';
 import ProductPage from './ProductPage';
 import CheckoutPage from './CheckoutPage';
@@ -13,7 +11,17 @@ import { BrowserRouter, Routes,Route } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
 import React, { useState } from 'react';
 import ConfirmationPage from './ConfirmationPage';
-
+import ThankYouPage from './Thankyou';
+import CartPage from './CartPage';
+import ConfirmCart from './ConfirmCart';
+import Signup from './Signup';
+import UserHistory from './UserHistory';
+import BuySubscriptionPage from './BuySubscriptionPage';
+import AddBooks from './AddBooks';
+import EditBooks from './EditBooks';
+import ViewBooks from './ViewBooks';
+import ViewUsers from './ViewUsers';
+import AdminDashboard from './AdminDashboard';
 
 
 function App() {
@@ -32,7 +40,16 @@ function App() {
         />
     <Route path='ForgotPassword' element={<ForgotPassword/>}/>
     <Route path = 'CheckoutPage' element = {<CheckoutPage/>}/>
-    
+    <Route path = 'Cart' element = {<CartPage/>}/>
+    <Route path = 'confirmcart' element = {<ConfirmCart/>}/>
+    <Route path  = 'signup' element = {<Signup/>}/>
+    <Route path = 'userhistory' element = {<UserHistory/>}/>
+    <Route path = 'buysub' element = {<BuySubscriptionPage/>}/>
+    <Route path = 'addbooks' element = {<AddBooks/>}/>
+    <Route path = 'editbooks' element = {<EditBooks/>}/>
+    <Route path = 'viewbooks' element = {<ViewBooks/>}/>
+    <Route path = 'viewusers' element = {<ViewUsers/>}/>
+    <Route path = 'admindashboard' element = {<AdminDashboard/>}/>
       
     <Route path="/" element={<LandingPage />} />
         <Route path="Login" element={<Login setCurrentUser={setCurrentUser} />} />
@@ -45,6 +62,7 @@ function App() {
           element={<CheckoutPage currentUser={currentUser} currentBook={currentBook} />}
         />
         <Route path="Cpage" element={<ConfirmationPage/>}/>
+        <Route path="Thankyou" element={<ThankYouPage/>}/>
           
     </Routes>
     </BrowserRouter>
