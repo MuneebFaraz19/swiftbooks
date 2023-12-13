@@ -33,11 +33,12 @@ const ViewBooks = () => {
       <div className="search-container">
         <input
           type="text"
+          
           placeholder="Search by Book name, genre, author, and publish year..."
           value={searchKeyword}
           onChange={(e) => setSearchKeyword(e.target.value)}
         />
-        <button onClick={handleSearch}>Search</button>
+        <button className='searchbutton' onClick={handleSearch}>Search</button>
       </div>
       <div className="books-container">
         {books.map((book) => (

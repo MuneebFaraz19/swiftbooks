@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './BuySubscriptionPage.css'
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const BuySubscriptionPage = () => {
   const [subscriptionID, setSubscriptionID] = useState('');
@@ -45,53 +45,64 @@ const BuySubscriptionPage = () => {
 
   return (
     <div>
-      <h2>Buy Subscription</h2>
-      <form>
-      <label htmlFor="subscriptionID">Subscription ID:</label>
-          <input
-            type="text"
-            id="subscriptionID"
-            name="subscriptionID"
-            className="form-input"
-            value={subscriptionID}
-            onChange={(e) => setSubscriptionID(e.target.value)}
-          />
-
-          <label htmlFor="userID">User ID:</label>
-          <input
-            type="text"
-            id="userID"
-            name="userID"
-            className="form-input"
-            value={userID}
-            onChange={(e) => setUserID(e.target.value)}
-          />
-
-        
+      <Navbar/>
+    
+    <div className="container mx-auto p-8">
+      
+      <h2 className="text-3xl font-semibold mb-4">Buy Subscription</h2>
+      <form className="mb-4">
+        <div className="flex space-x-4">
+          <div className="flex flex-col">
+            <label htmlFor="subscriptionID" className="mb-1">Subscription ID:</label>
+            <input
+              type="text"
+              id="subscriptionID"
+              name="subscriptionID"
+              className="input"
+              value={subscriptionID}
+              onChange={(e) => setSubscriptionID(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="userID" className="mb-1">User ID:</label>
+            <input
+              type="text"
+              id="userID"
+              name="userID"
+              className="input"
+              value={userID}
+              onChange={(e) => setUserID(e.target.value)}
+            />
+          </div>
+        </div>
       </form>
-      <button type="button" onClick={handleBuySubscription}>
-          Buy Subscription
-        </button>
-        <Link to="/" className="back-to-home">
-        <button type="button">
+
+      <button
+        type="button"
+        className="button bg-purple-500 text-white"
+        onClick={handleBuySubscription}
+      >
+        Buy Subscription
+      </button>
+
+      <Link to="/" className="back-to-home mt-4">
+        <button type="button" className="button bg-purple-500">
           Back to Home
         </button>
       </Link>
 
-      <h2>Available Subscriptions</h2>
-      <div className="subscriptions-container">
+      <h2 className="text-3xl font-semibold my-4">Available Subscriptions</h2>
+      <div className="flex flex-wrap">
         {subscriptions.map((subscription) => (
-          <div key={subscription.subscriptionID} className="subscription-card">
-            
-            <p>{`Subscription ID: ${subscription.subscriptionID}`}</p>
+          <div key={subscription.subscriptionID} className="subscription-card mb-4 mx-4 bg-white p-4 rounded-md shadow-md transition-transform transform hover:scale-105">
+            <p className="text-lg mb-2">{`Subscription ID: ${subscription.subscriptionID}`}</p>
             <p>{`Name: ${subscription.subscription_name}`}</p>
             <p>{`Validity: ${subscription.validity} days`}</p>
             <p>{`Price: $${subscription.subscription_price}`}</p>
-           
-            
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

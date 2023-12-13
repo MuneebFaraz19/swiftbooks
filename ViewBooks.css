@@ -1,5 +1,14 @@
 /* ViewBooks.css */
+.search-container{
+  color: black;
+  align-items: center;
 
+}
+
+.searchbutton{
+  color: white;
+  background-color: #4f46e5;
+}
 .books-container {
     display: flex;
     flex-wrap: wrap;

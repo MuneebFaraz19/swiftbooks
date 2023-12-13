@@ -1,28 +1,26 @@
-// Navbar.js
 import React from 'react';
-import './Navbar.css';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <h1 className="app-title">SwiftBooks</h1>
-        <div className="nav-links">
-        <Link to="/buysub" className="nav-link">
+    <nav className="bg-gradient-to-r from-blue-800 to-purple-700 p-4">
+      <div className="container mx-auto flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-white">SwiftBooks</h1>
+        <div className="flex space-x-4">
+        <Link to="/" className="text-white hover:text-gray-300">
+            Home
+          </Link>
+          <Link to="/buysub" className="text-white hover:text-gray-300">
             Subscriptions
           </Link>
-          <a href="#about" className="nav-link">
-            About
-          </a>
-          <Link to="/ProductPage" className="nav-link">
+          
+          <Link to="/ProductPage" className="text-white hover:text-gray-300">
             Products
           </Link>
-          <Link to="/Login" className="nav-link">
-
+          <Link to="/Login" className="text-white hover:text-gray-300">
             Login
           </Link>
-          <Link to="/Signup" className="nav-link">
+          <Link to="/Signup" className="text-white hover:text-gray-300">
             Signup
           </Link>
         </div>

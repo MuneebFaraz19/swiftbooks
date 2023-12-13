@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './ProductPage.css'; // Make sure to use the correct CSS file
 import FF from './FF.jpg';
+import Navbar from './Navbar';
 
 const ProductPage = () => {
   const [books, setBooks] = useState([]);
@@ -76,6 +77,7 @@ const ProductPage = () => {
 
   return (
     <div>
+      <Navbar/>
       <div className="search-container">
         <input
           type="text"

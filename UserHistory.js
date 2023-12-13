@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './UserHistory.css'; 
 import FF from './FF.jpg';
+import Navbar from './Navbar';
 
 
 const UserHistory = () => {
@@ -45,7 +46,11 @@ const UserHistory = () => {
   };
 
   return (
+    <div>
+       <Navbar/>
+  
     <div className="user-history-container">
+     
       <h2>User History</h2>
       <form onSubmit={handleUsernameSubmit}>
         <label htmlFor="username">Enter Username: </label>
@@ -83,6 +88,7 @@ const UserHistory = () => {
       )}
       
 
+    </div>
     </div>
   );
 };
